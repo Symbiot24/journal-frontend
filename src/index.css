@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* MindEcho Design System - Calming Mental Health Theme */
+@layer base {
+  :root {
+    /* Base colors - soft, calming palette */
+    --background: 210 20% 98%;
+    --foreground: 215 25% 27%;
+
+    /* Card system */
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 27%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 27%;
+
+    /* Primary - Calming teal/green */
+    --primary: 162 63% 41%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 162 40% 85%;
+    --primary-glow: 162 63% 65%;
+
+    /* Secondary - Soft lavender */
+    --secondary: 250 25% 95%;
+    --secondary-foreground: 250 25% 25%;
+
+    /* Muted tones */
+    --muted: 215 20% 95%;
+    --muted-foreground: 215 15% 45%;
+
+    /* Accent - Warm sage */
+    --accent: 140 25% 88%;
+    --accent-foreground: 140 45% 25%;
+
+    /* Status colors */
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 140 65% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 45 85% 55%;
+    --warning-foreground: 45 15% 15%;
+
+    /* Interactive elements */
+    --border: 215 20% 88%;
+    --input: 215 20% 95%;
+    --ring: 162 63% 41%;
+
+    /* Mental health mood colors */
+    --mood-happy: 60 100% 65%;
+    --mood-neutral: 45 15% 75%;
+    --mood-anxious: 25 75% 65%;
+    --mood-sad: 220 25% 60%;
+    --mood-angry: 0 70% 60%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-calm: linear-gradient(180deg, hsl(var(--accent)), hsl(var(--primary-light)));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--accent)));
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(var(--primary) / 0.1);
+    --shadow-glow: 0 8px 32px -8px hsl(var(--primary-glow) / 0.3);
+    --shadow-card: 0 2px 16px -2px hsl(215 20% 70% / 0.15);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark mode - softer, evening-friendly colors */
+    --background: 220 15% 9%;
+    --foreground: 210 20% 85%;
+
+    --card: 220 15% 12%;
+    --card-foreground: 210 20% 85%;
+
+    --popover: 220 15% 12%;
+    --popover-foreground: 210 20% 85%;
+
+    --primary: 162 45% 55%;
+    --primary-foreground: 220 15% 9%;
+    --primary-light: 162 30% 25%;
+    --primary-glow: 162 45% 70%;
+
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 210 20% 85%;
+
+    --muted: 220 15% 15%;
+    --muted-foreground: 215 15% 60%;
+
+    --accent: 140 20% 20%;
+    --accent-foreground: 140 25% 80%;
+
+    --destructive: 0 60% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 140 50% 50%;
+    --success-foreground: 0 0% 100%;
+    --warning: 45 80% 60%;
+    --warning-foreground: 45 15% 15%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 15%;
+    --ring: 162 45% 55%;
+
+    /* Dark mode mood colors */
+    --mood-happy: 60 85% 70%;
+    --mood-neutral: 45 15% 70%;
+    --mood-anxious: 25 65% 60%;
+    --mood-sad: 220 30% 55%;
+    --mood-angry: 0 60% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
