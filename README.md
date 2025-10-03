@@ -1,57 +1,54 @@
-MindEcho Frontend
+# MindEcho Frontend
 
-MindEcho – A mental health journaling platform with AI insights. Users can log moods, track progress, and receive personalized suggestions based on their entries.
+> **MindEcho** – A mental health journaling platform with AI insights. Users can log moods, track progress, and receive personalized suggestions based on their entries.
 
-This repository contains the frontend built using React, TypeScript, and TailwindCSS with custom UI components and authentication integrated with a backend API.
+This repository contains the **frontend** built using **React, TypeScript, and TailwindCSS** with custom UI components and authentication integrated with a backend API.
 
-Table of Contents
+---
 
-*Features
-*Tech Stack
-*Folder Structure
-*Getting Started
-*Environment Variables
-*Available Scripts
-*Authentication Flow
-*Components & Pages
-*API Integration
-*Testing
-*Future Enhancements
+## Table of Contents
 
-1.Features
+1. [Features](#features)
+2. [Tech Stack](#tech-stack)
+3. [Folder Structure](#folder-structure)
+4. [Getting Started](#getting-started)
+5. [Environment Variables](#environment-variables)
+6. [Available Scripts](#available-scripts)
+7. [Authentication Flow](#authentication-flow)
+8. [Components & Pages](#components--pages)
+9. [API Integration](#api-integration)
+10. [Testing](#testing)
+11. [Future Enhancements](#future-enhancements)
 
-User Authentication: Signup, Login, Logout with JWT tokens.
+---
 
-Journal Entries: Users can write, edit, and track moods.
+## Features
 
-Mood Tracking: Visual representation with emojis, charts, and timelines.
+* **User Authentication**: Signup, Login, Logout with JWT tokens.
+* **Journal Entries**: Users can write, edit, and track moods.
+* **Mood Tracking**: Visual representation with emojis, charts, and timelines.
+* **AI Insights**: Sentiment analysis for patterns (connected with backend AI services).
+* **Notifications**: Toast messages for success/error feedback.
+* **Responsive UI**: Modern design using TailwindCSS and custom components.
 
-AI Insights: Sentiment analysis for patterns (connected with backend AI services).
+---
 
-Responsive UI: Modern design using TailwindCSS and custom components.
+## Tech Stack
 
+* **React** (with TypeScript)
+* **TailwindCSS** for styling
+* **Lucide React Icons**
+* **React Router v6** for routing
+* **Context API** for global state management (`AuthContext`)
+* **Toast Notifications** via custom hook
+* **Fetch API** for backend integration
+* **Vite** for frontend tooling
 
-2.Tech Stack
+---
 
-React (with TypeScript)
+## Folder Structure
 
-TailwindCSS for styling
-
-Lucide React Icons
-
-React Router v6 for routing
-
-Context API for global state management (AuthContext)
-
-Toast Notifications via custom hook
-
-Fetch API for backend integration
-
-Vite for frontend tooling
-
-
-3.Folder Structure
-
+```
 mindecho-frontend/
 ├── public/               # Static assets
 ├── src/
@@ -74,98 +71,126 @@ mindecho-frontend/
 ├── package.json
 ├── tsconfig.json
 └── vite.config.ts
+```
 
+---
 
-4.Getting Started
+## Getting Started
 
-Prerequisites-
-Node.js v18 or above
-npm / yarn
+### Prerequisites
 
-Installation
-1.Clone the repository
+* Node.js v18 or above
+* npm / yarn
 
-git clone https://github.com/Symbiot24/journal-frontend.git
-cd journal-frontend
+### Installation
 
-2.Install dependencies:
+1. Clone the repository:
+
+```bash
+git clone https://github.com/<username>/mindecho-frontend.git
+cd mindecho-frontend
+```
+
+2. Install dependencies:
+
+```bash
 npm install
 # or
 yarn
+```
 
-3.Set up environment variables (see next section).
+3. Set up environment variables (see next section).
 
-4.Start the development server:
+4. Start the development server:
+
+```bash
 npm run dev
 # or
 yarn dev
+```
 
-5.Open your browser at http://localhost:5173 (or the port Vite shows).
+5. Open your browser at `http://localhost:5173` (or the port Vite shows).
 
+---
 
-5.Authentication Flow
+## Environment Variables
 
-Register / Login
+Create a `.env` file in the root:
 
-User submits the form → frontend sends POST request to backend.
-Backend returns JWT token + user info.
-AuthContext saves user & token in state + localStorage.
+```env
+VITE_APP_API_URL=http://localhost:2430
+```
 
-Protected Routes
+* `VITE_APP_API_URL`: Base URL of your backend API. Change it to your production backend when deploying.
 
-Dashboard, Journal pages are protected using AuthContext.
-Unauthenticated users are redirected to /login.
+> Note: Vite requires all environment variables to start with `VITE_`.
 
-Logout
+---
 
-Clears user + token from state and localStorage.
+## Available Scripts
 
+| Script            | Description                       |
+| ----------------- | --------------------------------- |
+| `npm run dev`     | Start dev server with hot reload  |
+| `npm run build`   | Build optimized production bundle |
+| `npm run preview` | Preview production build locally  |
 
-6.Components & Pages
+---
 
-Register.tsx – Signup form with validations + error handling.
+## Authentication Flow
 
-Login.tsx – Login form using email/password.
+1. **Register / Login**
 
-Dashboard.tsx – Main landing page after login.
+   * User submits the form → frontend sends `POST` request to backend.
+   * Backend returns JWT token + user info.
+   * `AuthContext` saves user & token in state + localStorage.
 
-Journal.tsx – Write, view, and track journal entries.
+2. **Protected Routes**
 
-UI Components:
+   * Dashboard, Journal pages are protected using `AuthContext`.
+   * Unauthenticated users are redirected to `/login`.
 
-Card, CardHeader, CardContent, Input, Button, Label, Alert
+3. **Logout**
 
-Toast – Displays success/error messages globally.
+   * Clears user + token from state and localStorage.
 
+---
 
-7.API Integration
+## Components & Pages
 
-Signup: POST /signup → { username, email, password } → { user, token }
+* **Register.tsx** – Signup form with validations + error handling.
+* **Login.tsx** – Login form using email/password.
+* **Dashboard.tsx** – Main landing page after login.
+* **Journal.tsx** – Write, view, and track journal entries.
+* **UI Components**:
 
-Login: POST /login → { email, password } → { user, token }
+  * `Card`, `CardHeader`, `CardContent`, `Input`, `Button`, `Label`, `Alert`
+* **Toast** – Displays success/error messages globally.
 
-Journal Entries: GET/POST/PUT /journal → fetch/add/update user journal entries
+---
 
-Frontend handles errors gracefully and displays messages returned from backend.
+## API Integration
 
+* **Signup**: `POST /signup` → `{ username, email, password }` → `{ user, token }`
+* **Login**: `POST /login` → `{ email, password }` → `{ user, token }`
+* **Journal Entries**: `GET/POST/PUT /journal` → fetch/add/update user journal entries
 
-8.Testing
+> Frontend handles errors gracefully and displays messages returned from backend.
 
-Use Postman to test backend endpoints first.
+---
 
-Use frontend forms to test end-to-end flow: signup → login → dashboard → journal.
+## Testing
 
-Check console logs for token and API responses during development.
+* Use **Postman** to test backend endpoints first.
+* Use frontend forms to test end-to-end flow: signup → login → dashboard → journal.
+* Check console logs for token and API responses during development.
 
+---
 
-9.Future Enhancements
+## Future Enhancements
 
-AI-powered insights visualization (charts, heatmaps).
-
-Mood-based recommendations and reminders.
-
-Dark mode toggle and accessibility improvements.
-
-Real-time peer support chats using Socket.io.
-
-Deploy frontend on Vercel / Netlify and connect with production backend.
+* AI-powered insights visualization (charts, heatmaps).
+* Mood-based recommendations and reminders.
+* Dark mode toggle and accessibility improvements.
+* Real-time peer support chats using Socket.io.
+* Deploy frontend on **Vercel / Netlify** and connect with production backend.
