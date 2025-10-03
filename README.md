@@ -49,7 +49,7 @@ This repository contains the **frontend** built using **React, TypeScript, and T
 ## Folder Structure
 
 ```
-mindecho-frontend/
+journal-frontend/
 ├── public/               # Static assets
 ├── src/
 │   ├── api.js            # API calls to backend
@@ -87,8 +87,8 @@ mindecho-frontend/
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/<username>/mindecho-frontend.git
-cd mindecho-frontend
+git clone https://github.com/Symbiot24/journal-frontend.git
+cd journal-frontend
 ```
 
 2. Install dependencies:
