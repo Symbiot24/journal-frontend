@@ -123,14 +123,13 @@ const Chat = () => {
       const category = supportCategories.find(c => c.id === selectedCategory);
       const systemPrompt = category?.prompt || supportCategories[0].prompt;
       
-      const response = await fetch('/ai/chat', {
+      const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           message: userMessage.content,
-          systemPrompt,
           category: selectedCategory
         }),
       });
@@ -141,12 +140,15 @@ const Chat = () => {
 
       const data = await response.json();
       
+      // Handle different possible response formats
+      const aiResponse = data.response || data.message || data.content || data.text || data.answer || JSON.stringify(data) || 'No response received';
+      
       // Remove typing indicator and add AI response
       setMessages(prev => {
         const filtered = prev.filter(m => m.id !== 'typing');
         return [...filtered, {
           id: (Date.now() + 1).toString(),
-          content: data.response,
+          content: aiResponse,
           sender: 'ai',
           timestamp: new Date()
         }];
@@ -200,8 +202,8 @@ const Chat = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      <main className="container mx-auto p-6 max-w-6xl">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <main className="container mx-auto p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
           {/* Support Category Sidebar */}
           <div className="lg:col-span-1">
             <Card className="bg-gradient-card shadow-card border-0">
@@ -369,6 +371,7 @@ const Chat = () => {
                       <li>• If in crisis, contact emergency services immediately</li>
                       <li>• AI suggestions complement but don't replace professional care</li>
                       <li>• Switch categories anytime for specialized support</li>
+                      <li>• Your conversations with AI assistant do not save. It will lose when you refresh or close the tab.</li>
                     </ul>
                   </div>
                 </div>
