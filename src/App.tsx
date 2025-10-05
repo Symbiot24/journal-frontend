@@ -14,6 +14,7 @@ import Journal from "@/pages/Journal";
 import Insights from "@/pages/Insights";
 import Chat from "@/pages/Chat";
 import NotFound from "@/pages/NotFound";
+import ManageEntries from "@/pages/ManageEntries";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +46,11 @@ const App = () => (
             <Route path="/insights" element={
               <ProtectedRoute>
                 <Insights />
+              </ProtectedRoute>
+            } />
+            <Route path="/entries" element={
+              <ProtectedRoute>
+                <ManageEntries />
               </ProtectedRoute>
             } />
             <Route path="/chat" element={

@@ -247,17 +247,24 @@ const Dashboard = () => {
         {/* Recent Entries */}
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold text-foreground">Recent Entries</h2>
-          <Link to="/journal">
-            <Button className="bg-gradient-primary hover:shadow-glow transition-bounce">
-              <PlusCircle className="h-4 w-4 mr-2" />
-              New Entry
-            </Button>
-          </Link>
+          <div className="flex gap-2">
+            <Link to="/entries">
+              <Button variant="secondary" className="transition-bounce">
+                Manage Entries
+              </Button>
+            </Link>
+            <Link to="/journal">
+              <Button className="bg-gradient-primary hover:shadow-glow transition-bounce">
+                <PlusCircle className="h-4 w-4 mr-2" />
+                New Entry
+              </Button>
+            </Link>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {entries.length > 0 ? (
-            entries.slice(0, 4).map((entry) => (
+            entries.slice(0, 6).map((entry) => (
               <EntryCard key={entry.id} entry={entry} />
             ))
           ) : (

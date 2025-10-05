@@ -26,6 +26,8 @@ interface AuthContextType {
   logout: () => void;
   addEntry: (entry: Omit<JournalEntry, 'id'>) => void;
   fetchEntries: () => void;
+  updateEntry: (id: string, updates: Partial<Omit<JournalEntry, 'id' | 'userId'>>) => Promise<void>;
+  deleteEntry: (id: string) => Promise<void>;
   isLoading: boolean;
 }
 
@@ -144,8 +146,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const fetchEntries = async () => {
-    // Mock entries for demo
-    
     const baseUrl = `${import.meta.env.VITE_APP_API_URL}/journal`;
     const url = user?.id ? `${baseUrl}?userId=${encodeURIComponent(user.id)}` : baseUrl;
     const response = await fetch(url, {
@@ -158,13 +158,61 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const data = await response.json();
 
-    console.log('Backend response:', data);
+    // Normalize server objects so UI consistently uses `id` (not `_id`)
+    const normalized: JournalEntry[] = (Array.isArray(data) ? data : []).map((e: any) => ({
+      id: e.id ?? e._id ?? e.uuid ?? Math.random().toString(36).substr(2, 9),
+      title: e.title,
+      content: e.content,
+      mood: e.mood,
+      createdAt: e.createdAt ?? e.created_at ?? new Date().toISOString(),
+      insights: e.insights,
+      userId: e.userId ?? e.user_id,
+    }));
 
     // If backend returns all entries, filter client-side by current user as a fallback
-    const filtered = Array.isArray(data) && user?.id
-      ? data.filter((e: any) => !e.userId || e.userId === user.id)
-      : data;
+    const filtered = user?.id ? normalized.filter((e) => !e.userId || e.userId === user.id) : normalized;
     setEntries(filtered);
+  };
+
+  const updateEntry = async (
+    id: string,
+    updates: Partial<Omit<JournalEntry, 'id' | 'userId'>>
+  ) => {
+    // Optimistic update
+    setEntries((prev) => prev.map((e) => (e.id === id ? { ...e, ...updates } : e)));
+    try {
+      await fetch(`${import.meta.env.VITE_APP_API_URL}/journal/${encodeURIComponent(id)}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify(updates),
+      });
+    } catch (error) {
+      // On error, refetch to sync
+      console.error('Failed to update entry', error);
+      fetchEntries();
+    }
+  };
+
+  const deleteEntry = async (id: string) => {
+    // Optimistic remove
+    const previous = entries;
+    setEntries((prev) => prev.filter((e) => e.id !== id));
+    try {
+      await fetch(`${import.meta.env.VITE_APP_API_URL}/journal/${encodeURIComponent(id)}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+      });
+    } catch (error) {
+      console.error('Failed to delete entry', error);
+      // revert
+      setEntries(previous);
+    }
   };
 
   const value: AuthContextType = {
@@ -177,6 +225,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     logout,
     addEntry,
     fetchEntries,
+    updateEntry,
+    deleteEntry,
     isLoading
   };
 

@@ -22,7 +22,7 @@ const Journal = () => {
   const [selectedMood, setSelectedMood] = useState<MoodType | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [insights, setInsights] = useState<string[]>([]);
-  const { addEntry, token, user } = useAuth();
+  const { token, user, fetchEntries } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -72,10 +72,9 @@ const Journal = () => {
       });
 
       const data = await response.json();
-
       console.log('Backend response:', data);
-
-      addEntry(entry);
+      // Ensure local state has server-assigned IDs
+      await fetchEntries();
 
       toast({
         title: 'Entry Saved!',
