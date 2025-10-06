@@ -135,7 +135,7 @@ const Dashboard = () => {
                 How are you feeling today? Your mental wellness journey continues here.
               </p>
             </div>
-            <Brain className="h-16 w-16 text-primary-foreground/20" />
+            <Brain className="h-16 w-16 text-primary-foreground/50" />
           </div>
         </div>
 

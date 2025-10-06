@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import "../font.css";
 import { 
   Heart, 
   BookOpen, 
@@ -37,8 +38,11 @@ const Navbar = () => {
     <Card className="bg-gradient-primary shadow-glow border-0 relative">
       <nav className="flex items-center justify-between p-4">
         <Link to="/dashboard" className="flex items-center space-x-2 text-primary-foreground">
-          <Brain className="h-8 w-8" />
-          <span className="text-xl font-bold">MindEcho</span>
+          <img className='h-10 w-10' src="mindecho.png" alt="" />
+          <div>
+          <span style={{color : "#000000", fontFamily : "MyFontBold"}} className="text-xl font-bold">mind</span>
+          <span style={{color : "#000000", fontFamily : "MyFontLight"}} className="text-xl">echo</span>
+          </div>
         </Link>
 
         {/* Desktop Navigation */}

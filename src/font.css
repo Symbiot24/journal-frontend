@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'MyFontBold';
+    src: url('/fonts/Comfortaa.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'MyFontLight';
+    src: url('/fonts/Comfortaa.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+  }
